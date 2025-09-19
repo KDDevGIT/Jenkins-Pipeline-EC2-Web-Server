@@ -26,3 +26,15 @@ resource "aws_security_group" "web_sg" {
   }
 }
 
+# EC2 Instance with user_data installing nginx and simple index page
+resource "aws_instance" "web" {
+  ami = data.aws_ami.al2023.id 
+  instance_type = var.instance_type
+  vpc_security_group_ids = [aws_security_group.web_sg.id]
+  key_name = var.key_name
+  user_data = file("${path.module}/user_data.sh")
+  tags = {
+    Name = "web-${var.environment}"
+  }
+}
+
