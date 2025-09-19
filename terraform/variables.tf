@@ -15,7 +15,13 @@ variable "instance_type" {
   default = "t3.micro"
 }
 
-variable "allowed_https_cidrs" {
+variable "allowed_http_cidrs" {
+  description = "CIDR Blocks allowed to reach HTTP on the instance"
+  type = list(string)
+  default = ["0.0.0.0/0"]
+}
+
+variable "key_name" {
   description = "Optional EC2 Key Pair Name for SSH"
   type = string
   default = null
